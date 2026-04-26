@@ -1,0 +1,10 @@
+<view class="container">
+  <view class="header">
+    <text class="title">奶茶扭蛋机</text>
+    <text class="subtitle">选择品牌，开始扭蛋</text>
+  </view>
+  <!-- Brand list will be implemented in Phase 2 -->
+  <view class="placeholder">
+    <text>品牌列表加载中...</text>
+  </view>
+</view>

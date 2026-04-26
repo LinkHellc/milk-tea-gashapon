@@ -1,0 +1,7 @@
+{
+  "desc": "关于本小程序sitemap的说明",
+  "rules": [{
+    "action": "allow",
+    "page": "*"
+  }]
+}

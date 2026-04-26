@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/gashapon/gashapon",
+    "pages/result/result",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "navigationBarTitleText": "奶茶扭蛋机",
+    "navigationBarBackgroundColor": "#f5f5f5"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

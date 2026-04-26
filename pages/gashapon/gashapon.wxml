@@ -1,0 +1,17 @@
+<view class="container">
+  <view class="machine">
+    <view class="machine-body">
+      <text class="brand-name">{{currentBrand}}</text>
+      <text class="machine-hint">点击下方按钮抽取</text>
+    </view>
+  </view>
+  <view class="action-area">
+    <button class="gashapon-btn" bindtap="onGashaponTap" hover-class="btn-hover">
+      扭一下
+    </button>
+  </view>
+  <view class="user-info" wx:if="{{userInfo}}">
+    <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+    <text class="nickname">{{userInfo.nickName}}</text>
+  </view>
+</view>
