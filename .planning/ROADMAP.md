@@ -22,7 +22,11 @@
   1. User can authorize login via WeChat OAuth and obtain their identity
   2. User avatar and nickname display correctly on result pages
   3. Unauthorized users are prompted to login before using gashapon
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Project scaffold: app entry, 4 pages, auth utilities
+- [ ] 01-02-PLAN.md — Auth flow implementation: lazy auth on "扭一下" tap
 
 ---
 
@@ -82,7 +86,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Project Setup & Auth | 0/1 | Not started | - |
+| 1. Project Setup & Auth | 0/2 | In planning | - |
 | 2. Brand Display & Selection | 0/2 | Not started | - |
 | 3. Core Gashapon Experience | 0/2 | Not started | - |
 | 4. Result Display & Sharing | 0/2 | Not started | - |
