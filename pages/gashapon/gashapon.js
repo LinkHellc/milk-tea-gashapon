@@ -20,7 +20,19 @@ Page({
   },
 
   onGashaponTap() {
-    // Implemented in Wave 2 — placeholder for now
-    console.log('onGashaponTap called');
+    if (this.data.isSpinning) return;
+    if (!this.data.isAuthorized) {
+      auth.requestAuth(
+        (userInfo) => { this.setData({ userInfo, isAuthorized: true }); this.startGashapon(); },
+        () => { this.startGashapon(); }  // D-02: still allow even if cancel
+      );
+    } else {
+      this.startGashapon();
+    }
+  },
+
+  startGashapon() {
+    this.setData({ isSpinning: true });
+    wx.navigateTo({ url: `/pages/result/result?brand=${encodeURIComponent(this.data.currentBrand || '未知品牌')}&milkTea=默认奶茶` });
   }
 });
