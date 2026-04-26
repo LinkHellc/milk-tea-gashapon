@@ -38,8 +38,13 @@ Plans:
   1. Home screen displays all 9 brands (一点点、喜茶、霸王茶姬、古茗、茶百道、CoCo、KOI、瑞幸、沪上阿姨) with logo and name
   2. Each brand appears as a milk tea cup-shaped gashapon machine
   3. Users can switch brands at any time and see visual feedback on selection
-**Plans**: TBD
+**Plans**: 3 plans
 **UI hint**: yes
+
+Plans:
+- [ ] 02-01-PLAN.md — Brand data foundation: data/brands.js with 9 brand definitions
+- [ ] 02-02-PLAN.md — Index page: swiper carousel with milk tea cup cards
+- [ ] 02-03-PLAN.md — Gashapon page: brand dropdown selector + machine display
 
 ---
 
@@ -87,7 +92,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Project Setup & Auth | 0/2 | In planning | - |
-| 2. Brand Display & Selection | 0/2 | Not started | - |
+| 2. Brand Display & Selection | 0/3 | In planning | - |
 | 3. Core Gashapon Experience | 0/2 | Not started | - |
 | 4. Result Display & Sharing | 0/2 | Not started | - |
 | 5. User Retention Systems | 0/3 | Not started | - |
