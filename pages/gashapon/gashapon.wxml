@@ -1,17 +1,53 @@
-<view class="container">
-  <view class="machine">
-    <view class="machine-body">
-      <text class="brand-name">{{currentBrand}}</text>
-      <text class="machine-hint">点击下方按钮抽取</text>
+<view class="container" style="background: linear-gradient(180deg, #f8f8f8 0%, #fff5f5 100%);">
+
+  <!-- Brand Dropdown Selector (D-11) -->
+  <view class="brand-selector" bindtap="toggleDropdown">
+    <text class="current-brand">{{currentBrand.name}}</text>
+    <text class="arrow {{showDropdown ? 'arrow-up' : ''}}">▼</text>
+  </view>
+
+  <!-- Dropdown Panel -->
+  <view wx:if="{{showDropdown}}" class="dropdown-panel">
+    <view wx:for="{{brands}}" wx:key="id"
+          class="dropdown-item {{item.id === currentBrand.id ? 'selected' : ''}}"
+          bindtap="onBrandChange"
+          data-brand-index="{{index}}">
+      <text>{{item.name}}</text>
     </view>
   </view>
+
+  <!-- Milk Tea Cup Machine (D-09 scaled up) -->
+  <view class="machine-container">
+    <view class="machine-card" style="background: linear-gradient(180deg, {{currentBrand.color}} 0%, {{currentBrand.color}}dd 100%);">
+      <!-- Cup Lid -->
+      <view class="machine-cup-lid" style="background: linear-gradient(180deg, {{currentBrand.color}}bb 0%, {{currentBrand.color}}88 100%);"></view>
+      <!-- Cup Body -->
+      <view class="machine-cup-body">
+        <!-- Large Logo Placeholder -->
+        <view class="machine-logo-placeholder" style="background: rgba(255,255,255,0.9);">
+          <text class="machine-initials" style="color: {{currentBrand.color}};">{{currentBrand.name.[0]}}</text>
+        </view>
+        <!-- Brand Name -->
+        <text class="machine-brand-name">{{currentBrand.name}}</text>
+        <!-- Hint Text -->
+        <text class="machine-hint">点击下方按钮抽取</text>
+      </view>
+      <!-- Straw Hole -->
+      <view class="machine-straw-hole"></view>
+    </view>
+  </view>
+
+  <!-- Action Area with CTA -->
   <view class="action-area">
     <button class="gashapon-btn" bindtap="onGashaponTap" hover-class="btn-hover">
       扭一下
     </button>
   </view>
+
+  <!-- User Info (from Phase 1 auth) -->
   <view class="user-info" wx:if="{{userInfo}}">
     <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
     <text class="nickname">{{userInfo.nickName}}</text>
   </view>
+
 </view>
