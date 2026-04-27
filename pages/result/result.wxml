@@ -1,22 +1,44 @@
-<view class="container">
-  <view class="result-card">
+<view class="container" style="background: linear-gradient(180deg, #f8f8f8 0%, #fff5f5 100%);">
+
+  <!-- Result reveal animation -->
+  <view class="result-animation-container">
+    <!-- Capsule -->
+    <view class="result-capsule {{capsuleClass}}">
+      <!-- Pearl inside -->
+      <view class="result-pearl {{pearlClass}} {{showPearl ? 'pearl-glow' : ''}}"></view>
+      <!-- Result name -->
+      <view class="result-capsule-name {{nameClass}}">{{milkTea}}</view>
+    </view>
+  </view>
+
+  <!-- Result card -->
+  <view class="result-card {{cardClass}}">
     <text class="brand-label">{{brand}}</text>
     <text class="milk-tea-name">{{milkTea}}</text>
     <text class="description">{{description}}</text>
   </view>
 
+  <!-- Pearl graphic below card -->
+  <view class="pearl-graphic {{pearlGraphicClass}}">
+    <view class="pearl-circle"></view>
+  </view>
+
+  <!-- User info section -->
   <view class="user-section" wx:if="{{userInfo}}">
     <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
     <text class="nickname">{{userInfo.nickName}}</text>
   </view>
 
+  <!-- Login prompt -->
   <view class="login-prompt" wx:if="{{showLoginPrompt}}">
     <text class="prompt-text">登录后可保存抽取记录</text>
     <button class="login-btn" bindtap="onLoginTap">立即登录</button>
   </view>
 
+  <!-- Action buttons -->
   <view class="actions">
     <button class="action-btn retry-btn" bindtap="onRetryTap">再扭一次</button>
     <button class="action-btn share-btn" bindtap="onShareTap">分享结果</button>
   </view>
+
 </view>

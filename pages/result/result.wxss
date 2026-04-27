@@ -104,3 +104,172 @@
   color: #fff;
   border: none;
 }
+
+/* ====== Result Animation Styles ====== */
+
+/* Animation container - centered above result card */
+.result-animation-container {
+  position: relative;
+  width: 200rpx;
+  height: 200rpx;
+  margin: 60rpx auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Capsule - transparent sphere for result reveal */
+.result-capsule {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 100%);
+  border: 2rpx solid rgba(255,255,255,0.5);
+  box-shadow: 0 0 20rpx rgba(255,255,255,0.3), inset 0 0 20rpx rgba(255,255,255,0.2);
+  position: absolute;
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* Pearl inside capsule */
+.result-pearl {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: #F5A6A0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+}
+
+/* Result name inside capsule */
+.result-capsule-name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #333333;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+/* Pearl graphic below card */
+.pearl-graphic {
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+}
+
+.pearl-circle {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0%, #F5A6A0 50%, rgba(245,166,160,0.8) 100%);
+  box-shadow: 0 4rpx 12rpx rgba(245,166,160,0.4);
+}
+
+/* Animation keyframes */
+
+/* Capsule pop in */
+@keyframes capsule-popin {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Capsule open - splits in middle */
+@keyframes capsule-open-result {
+  0% {
+    transform: scale(1);
+    border-radius: 50%;
+  }
+  40% {
+    transform: scale(1.3);
+    border-radius: 50%;
+  }
+  60% {
+    transform: scale(1.3);
+    border-radius: 30% 30% 50% 50%;
+  }
+  100% {
+    transform: scale(0);
+    border-radius: 50%;
+    opacity: 0;
+  }
+}
+
+/* Pearl bounce in */
+@keyframes pearl-bounce {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+  80% {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Result name fade in */
+@keyframes result-name-fadein {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Result card reveal with bounce */
+@keyframes card-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30rpx);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10rpx);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pearl glow pulse */
+@keyframes pearl-glow {
+  0%, 100% {
+    box-shadow: 0 0 10rpx rgba(245,166,160,0.5);
+  }
+  50% {
+    box-shadow: 0 0 20rpx rgba(245,166,160,0.8);
+  }
+}
+
+.pearl-glow {
+  animation: pearl-glow 1.5s ease-in-out infinite;
+}

@@ -16,31 +16,49 @@
     </view>
   </view>
 
-  <!-- Milk Tea Cup Machine (D-09 scaled up) -->
-  <view class="machine-container">
-    <view class="machine-card" style="background: linear-gradient(180deg, {{currentBrand.color}} 0%, {{currentBrand.color}}dd 100%);">
-      <!-- Cup Lid -->
-      <view class="machine-cup-lid" style="background: linear-gradient(180deg, {{currentBrand.color}}bb 0%, {{currentBrand.color}}88 100%);"></view>
-      <!-- Cup Body -->
-      <view class="machine-cup-body">
-        <!-- Large Logo Placeholder -->
-        <view class="machine-logo-placeholder" style="background: rgba(255,255,255,0.9);">
-          <text class="machine-initials" style="color: {{currentBrand.color}};">{{currentBrand.name.[0]}}</text>
+  <!-- Milk Tea Cup Machine with Animation -->
+  <view class="machine-container" style="position: relative;">
+    <!-- Cup tilt wrapper - animates when spinning -->
+    <view class="{{isSpinning ? 'cup-tilt' : ''}}" style="transition: transform 0.2s ease-in;">
+      <view class="machine-card" style="background: linear-gradient(180deg, {{currentBrand.color}} 0%, {{currentBrand.color}}dd 100%);">
+        <!-- Cup Lid -->
+        <view class="machine-cup-lid" style="background: linear-gradient(180deg, {{currentBrand.color}}bb 0%, {{currentBrand.color}}88 100%);"></view>
+        <!-- Cup Body -->
+        <view class="machine-cup-body">
+          <!-- Large Logo Placeholder -->
+          <view class="machine-logo-placeholder" style="background: rgba(255,255,255,0.9);">
+            <text class="machine-initials" style="color: {{currentBrand.color}};">{{currentBrand.name.[0]}}</text>
+          </view>
+          <!-- Brand Name -->
+          <text class="machine-brand-name">{{currentBrand.name}}</text>
+          <!-- Hint Text -->
+          <text class="machine-hint">点击下方按钮抽取</text>
         </view>
-        <!-- Brand Name -->
-        <text class="machine-brand-name">{{currentBrand.name}}</text>
-        <!-- Hint Text -->
-        <text class="machine-hint">点击下方按钮抽取</text>
+        <!-- Straw Hole (with straw visual) -->
+        <view class="machine-straw-hole"></view>
+        <view class="straw-visual" style="position: absolute; right: 40rpx; top: 60rpx; width: 16rpx; height: 80rpx; background: linear-gradient(180deg, {{currentBrand.color}}cc 0%, {{currentBrand.color}}88 100%); border-radius: 8rpx;"></view>
       </view>
-      <!-- Straw Hole -->
-      <view class="machine-straw-hole"></view>
+    </view>
+
+    <!-- Capsule Animation Layer - positioned above cup -->
+    <view class="animation-layer" wx:if="{{isSpinning}}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: flex-start; pointer-events: none;">
+      <!-- Capsule -->
+      <view class="capsule {{capsuleClass}}" style="position: relative;">
+        <!-- Pearl inside -->
+        <view class="capsule-pearl {{showPearl ? 'pearl-visible' : ''}}"></view>
+        <!-- Result reveal -->
+        <view class="capsule-result {{showResult ? 'result-visible' : ''}}">
+          <text class="result-name">{{resultMilkTea.name}}</text>
+          <view class="result-pearl"></view>
+        </view>
+      </view>
     </view>
   </view>
 
   <!-- Action Area with CTA -->
   <view class="action-area">
-    <button class="gashapon-btn" bindtap="onGashaponTap" hover-class="btn-hover">
-      扭一下
+    <button class="gashapon-btn {{isSpinning ? 'loading pulsing' : ''}}" bindtap="onGashaponTap" hover-class="btn-hover" disabled="{{isSpinning}}">
+      {{isSpinning ? '抽取中...' : '扭一下'}}
     </button>
   </view>
 

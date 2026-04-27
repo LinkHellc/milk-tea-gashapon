@@ -182,3 +182,182 @@
   font-size: 28rpx;
   color: #666666;
 }
+
+/* ====== Animation Styles ====== */
+
+/* Cup tilt animation - simulates drinking posture */
+.cup-tilt {
+  transform: rotate(15deg);
+  transition: transform 0.2s ease-in;
+}
+
+/* Animation container - positioned above cup */
+.animation-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Capsule - transparent sphere */
+.capsule {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 100%);
+  border: 2rpx solid rgba(255,255,255,0.5);
+  box-shadow: 0 0 20rpx rgba(255,255,255,0.3), inset 0 0 20rpx rgba(255,255,255,0.2);
+  position: absolute;
+  top: 80rpx;
+  opacity: 0;
+  transform: translateY(0) rotate(0deg) scale(0);
+}
+
+/* Pearl inside capsule */
+.capsule-pearl {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: #F5A6A0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+/* Result reveal inside capsule */
+.capsule-result {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  opacity: 0;
+}
+
+.capsule-result .result-name {
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #333333;
+  white-space: nowrap;
+}
+
+.capsule-result .result-pearl {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 50%;
+  background: #F5A6A0;
+  margin: 4rpx auto 0;
+}
+
+/* Animation keyframes */
+
+/* Capsule spiral rise through straw */
+@keyframes capsule-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(300rpx) rotate(0deg) scale(0.3);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(240rpx) rotate(180deg) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(120rpx) rotate(540deg) scale(0.8);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(40rpx) rotate(720deg) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(900deg) scale(1);
+  }
+}
+
+/* Capsule eject - pop out above cup */
+@keyframes capsule-eject {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(900deg) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-80rpx) rotate(1080deg) scale(1.1);
+  }
+}
+
+/* Capsule open - splits open */
+@keyframes capsule-open {
+  0% {
+    transform: scale(1.1);
+    border-radius: 50%;
+  }
+  40% {
+    transform: scale(1.3);
+    border-radius: 50%;
+  }
+  60% {
+    transform: scale(1.3);
+    border-radius: 30% 30% 50% 50%;
+  }
+  100% {
+    transform: scale(0);
+    border-radius: 50%;
+  }
+}
+
+/* Pearl fade in */
+@keyframes pearl-fadein {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Result name fade in */
+@keyframes result-fadein {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Button loading state */
+.gashapon-btn.loading {
+  background: #cccccc;
+  box-shadow: none;
+}
+
+.gashapon-btn.loading::after {
+  content: '抽取中...';
+}
+
+/* Pulsing animation for loading state */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.gashapon-btn.pulsing {
+  animation: pulse 1s ease-in-out infinite;
+}
