@@ -1,12 +1,28 @@
-Page({
-  data: {},
+const { brands } = require('../../data/brands.js');
 
-  onLoad(options) {
-    // Phase 1: placeholder
-    // Phase 2: load brand list
+Page({
+  data: {
+    brandPages: [],    // brands split into pages of 3 for swiper
+    currentSwiperIndex: 0
   },
 
-  onShow() {
-    // Refresh brand selection state
+  onLoad() {
+    // Split brands into pages of 3 for swiper (D-08: 3 per screen)
+    const pages = [];
+    for (let i = 0; i < brands.length; i += 3) {
+      pages.push(brands.slice(i, i + 3));
+    }
+    this.setData({ brandPages: pages });
+  },
+
+  onBrandTap(e) {
+    const brand = e.currentTarget.dataset.brand;
+    wx.navigateTo({
+      url: `/pages/gashapon/gashapon?brandId=${brand.id}&brandName=${encodeURIComponent(brand.name)}`
+    });
+  },
+
+  onSwiperChange(e) {
+    this.setData({ currentSwiperIndex: e.detail.current });
   }
 });

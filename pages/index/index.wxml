@@ -1,10 +1,44 @@
-<view class="container">
+<view class="container" style="background: linear-gradient(180deg, #f8f8f8 0%, #fff5f5 100%);">
+  <!-- Header -->
   <view class="header">
     <text class="title">奶茶扭蛋机</text>
     <text class="subtitle">选择品牌，开始扭蛋</text>
   </view>
-  <!-- Brand list will be implemented in Phase 2 -->
-  <view class="placeholder">
-    <text>品牌列表加载中...</text>
+
+  <!-- Brand Swiper (D-08: 3 brands per screen, 3 screens) -->
+  <swiper class="brand-swiper"
+          indicator-dots="{{false}}"
+          autoplay="{{false}}"
+          circular="{{false}}"
+          previous-margin="30rpx"
+          next-margin="30rpx"
+          bindchange="onSwiperChange">
+    <block wx:for="{{brandPages}}" wx:for-item="page">
+      <swiper-item class="brand-page">
+        <view wx:for="{{page}}" class="brand-card-wrapper" bindtap="onBrandTap" data-brand="{{item}}">
+          <!-- Milk Tea Cup Card (D-09) -->
+          <view class="brand-card" style="background: linear-gradient(180deg, {{item.color}} 0%, {{item.color}}dd 100%);">
+            <!-- Cup Lid -->
+            <view class="cup-lid" style="background: linear-gradient(180deg, {{item.color}}bb 0%, {{item.color}}88 100%);"></view>
+            <!-- Cup Body -->
+            <view class="cup-body">
+              <!-- Brand Logo Placeholder (colored circle with initials) -->
+              <view class="brand-logo-placeholder" style="background: rgba(255,255,255,0.9);">
+                <text class="brand-initials" style="color: {{item.color}};">{{item.name.[0]}}</text>
+              </view>
+              <!-- Brand Name -->
+              <text class="brand-name" style="color: #333333;">{{item.name}}</text>
+            </view>
+            <!-- Straw Hole (D-09: semi-transparent circle) -->
+            <view class="straw-hole"></view>
+          </view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- Custom Dot Indicators (D-08: circle dots) -->
+  <view class="swiper-dots">
+    <view wx:for="{{3}}" class="dot {{currentSwiperIndex === index ? 'active' : ''}}"></view>
   </view>
 </view>
