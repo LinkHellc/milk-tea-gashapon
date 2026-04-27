@@ -5,7 +5,7 @@
 ## Phases
 
 - [ ] **Phase 1: Project Setup & Authentication** — WeChat OAuth login and user identity
-- [ ] **Phase 2: Brand Display & Selection** — 9 brand gashapon machines with switching
+- [x] **Phase 2: Brand Display & Selection** — 9 brand gashapon machines with switching
 - [ ] **Phase 3: Core Gashapon Experience** — Capsule animation, cloud probability, result reveal
 - [ ] **Phase 4: Result Display & Sharing** — Retry, share image generation, WeChat sharing
 - [ ] **Phase 5: User Retention Systems** — Points, achievements, history, custom capsules
@@ -25,12 +25,12 @@
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Project scaffold: app entry, 4 pages, auth utilities
-- [ ] 01-02-PLAN.md — Auth flow implementation: lazy auth on "扭一下" tap
+- [x] 01-01-PLAN.md — Project scaffold: app entry, 4 pages, auth utilities
+- [x] 01-02-PLAN.md — Auth flow implementation: lazy auth on "扭一下" tap
 
 ---
 
-### Phase 2: Brand Display & Selection
+### Phase 2: Brand Display & Selection (Complete)
 **Goal**: Users can browse 9 milk tea brands and switch between them
 **Depends on**: Phase 1
 **Requirements**: BRAND-01, BRAND-02
@@ -42,9 +42,9 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 02-01-PLAN.md — Brand data foundation: data/brands.js with 9 brand definitions
-- [ ] 02-02-PLAN.md — Index page: swiper carousel with milk tea cup cards
-- [ ] 02-03-PLAN.md — Gashapon page: brand dropdown selector + machine display
+- [x] 02-01-PLAN.md — Brand data foundation: data/brands.js with 9 brand definitions
+- [x] 02-02-PLAN.md — Index page: swiper carousel with milk tea cup cards
+- [x] 02-03-PLAN.md — Gashapon page: brand dropdown selector + machine display
 
 ---
 
@@ -91,8 +91,8 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Project Setup & Auth | 0/2 | In planning | - |
-| 2. Brand Display & Selection | 0/3 | In planning | - |
+| 1. Project Setup & Auth | 2/2 | Complete | 2026-04-26 |
+| 2. Brand Display & Selection | 3/3 | Complete | 2026-04-27 |
 | 3. Core Gashapon Experience | 0/2 | Not started | - |
 | 4. Result Display & Sharing | 0/2 | Not started | - |
 | 5. User Retention Systems | 0/3 | Not started | - |

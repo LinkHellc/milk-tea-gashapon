@@ -8,8 +8,8 @@
 |--------|------|------|------|
 | AUTH-01 | 微信授权登录 | Phase 1 | 待规划 |
 | AUTH-02 | 头像昵称展示 | Phase 1 | 待规划 |
-| BRAND-01 | 品牌列表展示 | Phase 2 | 待规划 |
-| BRAND-02 | 品牌切换 | Phase 2 | 待规划 |
+| BRAND-01 | 品牌列表展示 | Phase 2 | Complete |
+| BRAND-02 | 品牌切换 | Phase 2 | Complete |
 | GASH-01 | 胶囊弹出动画 | Phase 3 | 待规划 |
 | GASH-02 | 随机抽取（云端概率） | Phase 3 | 待规划 |
 | GASH-03 | 结果展示 | Phase 3 | 待规划 |
