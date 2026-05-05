@@ -361,3 +361,104 @@
 .gashapon-btn.pulsing {
   animation: pulse 1s ease-in-out infinite;
 }
+
+/* Custom milk tea section */
+.custom-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16rpx 30rpx;
+  margin-top: 20rpx;
+  background: #fff;
+  border-radius: 30rpx;
+  border: 2rpx dashed #ddd;
+}
+
+.custom-icon {
+  font-size: 28rpx;
+  margin-right: 10rpx;
+}
+
+.custom-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* Custom panel */
+.custom-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 30rpx 30rpx 0 0;
+  padding: 30rpx;
+  box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.1);
+  z-index: 1000;
+  max-height: 60vh;
+  overflow-y: scroll;
+}
+
+.custom-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.custom-panel-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.custom-panel-close {
+  font-size: 36rpx;
+  color: #999;
+  padding: 10rpx;
+}
+
+.custom-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.custom-input {
+  border: 2rpx solid #eee;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+}
+
+.custom-submit-btn {
+  background: #ffb7b2;
+  color: #fff;
+  font-size: 28rpx;
+  padding: 24rpx;
+  border-radius: 30rpx;
+  border: none;
+}
+
+.custom-list {
+  margin-top: 30rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.custom-list-title {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.custom-item {
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.custom-item-name {
+  font-size: 28rpx;
+  color: #333;
+}

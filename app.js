@@ -4,6 +4,12 @@ App({
     if (userInfo) {
       console.log('Existing session found for:', userInfo.nickName);
     }
+
+    // Enable share menu globally
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    });
   },
   globalData: {
     currentBrand: null

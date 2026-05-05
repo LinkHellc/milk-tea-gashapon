@@ -62,6 +62,42 @@
     </button>
   </view>
 
+  <!-- Custom milk tea section -->
+  <view class="custom-section" bindtap="toggleCustomPanel">
+    <text class="custom-icon">➕</text>
+    <text class="custom-label">添加自定义奶茶</text>
+  </view>
+
+  <!-- Custom milk tea panel -->
+  <view wx:if="{{showCustomPanel}}" class="custom-panel">
+    <view class="custom-panel-header">
+      <text class="custom-panel-title">添加自定义奶茶</text>
+      <text class="custom-panel-close" bindtap="toggleCustomPanel">✕</text>
+    </view>
+
+    <view class="custom-form">
+      <input class="custom-input"
+             placeholder="输入奶茶名称"
+             value="{{customName}}"
+             bindinput="onCustomNameInput"
+             maxlength="20"/>
+      <input class="custom-input"
+             placeholder="一句话介绍（可选）"
+             value="{{customDesc}}"
+             bindinput="onCustomDescInput"
+             maxlength="50"/>
+      <button class="custom-submit-btn" bindtap="submitCustomMilkTea">添加</button>
+    </view>
+
+    <!-- Custom milk teas list -->
+    <view wx:if="{{customMilkTeas.length > 0}}" class="custom-list">
+      <text class="custom-list-title">我的定制 ({{customMilkTeas.length}})</text>
+      <view wx:for="{{customMilkTeas}}" wx:key="id" class="custom-item">
+        <text class="custom-item-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
   <!-- User Info (from Phase 1 auth) -->
   <view class="user-info" wx:if="{{userInfo}}">
     <image class="avatar" src="{{userInfo.avatarUrl}}"></image>

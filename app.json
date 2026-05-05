@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/gashapon/gashapon",
     "pages/result/result",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/history/history"
   ],
   "window": {
     "navigationBarTitleText": "奶茶扭蛋机",

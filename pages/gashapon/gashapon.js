@@ -12,7 +12,11 @@ Page({
     capsuleClass: '',
     showPearl: false,
     showResult: false,
-    resultMilkTea: null
+    resultMilkTea: null,
+    showCustomPanel: false,
+    customName: '',
+    customDesc: '',
+    customMilkTeas: []
   },
 
   onLoad(options) {
@@ -36,6 +40,67 @@ Page({
     if (userInfo) {
       this.setData({ userInfo, isAuthorized: true });
     }
+
+    // Load custom milk teas for current brand
+    this.loadCustomMilkTeas();
+  },
+
+  toggleCustomPanel() {
+    if (this.data.isSpinning) return;
+    if (!this.data.showCustomPanel) {
+      // Load custom milk teas when opening
+      this.loadCustomMilkTeas();
+    }
+    this.setData({ showCustomPanel: !this.data.showCustomPanel });
+  },
+
+  loadCustomMilkTeas() {
+    wx.cloud.callFunction({
+      name: 'getCustomMilkTeas',
+      data: { brandId: this.data.currentBrand.id },
+      success: (res) => {
+        if (res.result && res.result.success) {
+          this.setData({ customMilkTeas: res.result.data.customMilkTeas });
+        }
+      }
+    });
+  },
+
+  onCustomNameInput(e) {
+    this.setData({ customName: e.detail.value });
+  },
+
+  onCustomDescInput(e) {
+    this.setData({ customDesc: e.detail.value });
+  },
+
+  submitCustomMilkTea() {
+    const { customName, currentBrand } = this.data;
+    if (!customName || !customName.trim()) {
+      wx.showToast({ title: '请输入奶茶名称', icon: 'none' });
+      return;
+    }
+
+    wx.cloud.callFunction({
+      name: 'addCustomMilkTea',
+      data: {
+        brandId: currentBrand.id,
+        name: customName.trim(),
+        description: this.data.customDesc.trim()
+      },
+      success: (res) => {
+        if (res.result && res.result.success) {
+          wx.showToast({ title: '添加成功', icon: 'success' });
+          this.setData({ customName: '', customDesc: '' });
+          this.loadCustomMilkTeas();
+        } else {
+          wx.showToast({ title: res.result.error || '添加失败', icon: 'none' });
+        }
+      },
+      fail: () => {
+        wx.showToast({ title: '添加失败', icon: 'none' });
+      }
+    });
   },
 
   toggleDropdown() {
@@ -102,6 +167,40 @@ Page({
       success: (res) => {
         if (res.result && res.result.success) {
           this.setData({ resultMilkTea: res.result.data.milkTea });
+
+          // Record draw and get points/achievements
+          wx.cloud.callFunction({
+            name: 'recordDraw',
+            data: {
+              brandId: this.data.currentBrand.id,
+              milkTeaName: res.result.data.milkTea.name,
+              isHidden: false
+            },
+            success: (recordRes) => {
+              if (recordRes.result && recordRes.result.success) {
+                const { pointsEarned, unlockedAchievements } = recordRes.result.data;
+
+                // Show achievement unlock toast if any
+                if (unlockedAchievements && unlockedAchievements.length > 0) {
+                  unlockedAchievements.forEach((ach, index) => {
+                    setTimeout(() => {
+                      wx.showToast({
+                        title: `🎉 解锁成就：${ach.name}`,
+                        icon: 'none',
+                        duration: 2000
+                      });
+                    }, index * 500);
+                  });
+                }
+
+                // Store points for display
+                this.setData({
+                  pointsEarned: pointsEarned,
+                  totalPoints: recordRes.result.data.totalPoints
+                });
+              }
+            }
+          });
         } else {
           // Fallback to first milk tea of brand if error
           const defaultMilkTeas = {

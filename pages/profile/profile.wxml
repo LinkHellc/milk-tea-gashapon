@@ -1,42 +1,45 @@
-<view class="container">
-  <block wx:if="{{userInfo}}">
-    <view class="profile-header">
-      <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
-      <text class="nickname">{{userInfo.nickName}}</text>
+<view class="container" style="background: linear-gradient(180deg, #f8f8f8 0%, #fff5f5 100%);">
+
+  <!-- User info -->
+  <view class="user-card">
+    <image class="avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}"></image>
+    <text class="nickname">{{userInfo.nickName || '微信用户'}}</text>
+  </view>
+
+  <!-- Points display -->
+  <view class="points-card">
+    <view class="points-main">
+      <text class="points-number">{{totalPoints}}</text>
+      <text class="points-label">积分</text>
     </view>
-    <view class="stats">
+    <view class="points-stats">
       <view class="stat-item">
-        <text class="stat-value">{{drawCount}}</text>
+        <text class="stat-value">{{totalDraws}}</text>
         <text class="stat-label">抽取次数</text>
       </view>
       <view class="stat-item">
-        <text class="stat-value">{{points}}</text>
-        <text class="stat-label">积分</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">{{achievementCount}}</text>
-        <text class="stat-label">成就</text>
+        <text class="stat-value">{{unlockedCount}}</text>
+        <text class="stat-label">已解锁成就</text>
       </view>
     </view>
-    <view class="menu-list">
-      <view class="menu-item" bindtap="onHistoryTap">
-        <text>抽取历史</text>
-        <text class="arrow">></text>
-      </view>
-      <view class="menu-item" bindtap="onAchievementTap">
-        <text>我的成就</text>
-        <text class="arrow">></text>
-      </view>
-      <view class="menu-item logout" bindtap="onLogoutTap">
-        <text>退出登录</text>
+  </view>
+
+  <!-- Achievements -->
+  <view class="section">
+    <text class="section-title">我的成就</text>
+    <view class="achievements-grid">
+      <view wx:for="{{achievements}}" wx:key="id"
+            class="achievement-item {{item.unlocked ? 'unlocked' : 'locked'}}">
+        <text class="achievement-icon">{{item.unlocked ? item.icon : '🔒'}}</text>
+        <text class="achievement-name">{{item.unlocked ? item.name : '???'}}</text>
       </view>
     </view>
-  </block>
-  <block wx:else>
-    <view class="not-logged">
-      <image class="guest-avatar" src="/assets/default-avatar.png"></image>
-      <text class="guest-text">未登录</text>
-      <button class="login-btn" bindtap="onLoginTap">点击登录</button>
-    </view>
-  </block>
+  </view>
+
+  <!-- Actions -->
+  <view class="actions">
+    <button class="action-btn" bindtap="goHistory">查看抽取历史</button>
+    <button class="action-btn secondary" bindtap="goDraw">再去抽取</button>
+  </view>
+
 </view>

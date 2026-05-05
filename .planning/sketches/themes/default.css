@@ -1,0 +1,41 @@
+:root {
+  /* Colors - playful milk tea palette */
+  --color-bg: #fff8f0;
+  --color-surface: #ffffff;
+  --color-border: #f0e0d0;
+  --color-text: #5c3d2e;
+  --color-text-muted: #a08070;
+  --color-primary: #e8a87c;
+  --color-primary-hover: #d4956a;
+  --color-accent: #f4c9a8;
+  --color-danger: #e88c8c;
+  --color-success: #88c9a8;
+
+  /* Typography */
+  --font-sans: 'Nunito', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Shapes */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(92, 61, 46, 0.08);
+  --shadow-md: 0 4px 16px rgba(92, 61, 46, 0.12);
+  --shadow-lg: 0 8px 32px rgba(92, 61, 46, 0.16);
+}

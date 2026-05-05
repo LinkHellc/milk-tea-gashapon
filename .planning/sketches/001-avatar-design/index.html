@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>奶茶扭蛋机 - 头像设计</title>
+  <link rel="stylesheet" href="../themes/default.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-text);
+      padding: 60px 20px 40px;
+      min-height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      font-size: var(--text-2xl);
+      margin-bottom: var(--space-8);
+      color: var(--color-text);
+    }
+
+    /* Tab Navigation */
+    #variant-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9998;
+      background: var(--color-surface);
+      border-bottom: 2px solid var(--color-border);
+      padding: 12px 20px;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .variant-tab {
+      background: var(--color-bg);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-full);
+      padding: 8px 20px;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--color-text);
+    }
+    .variant-tab:hover {
+      background: var(--color-accent);
+      border-color: var(--color-primary);
+    }
+    .variant-tab.active {
+      background: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+
+    /* Sketch Content */
+    .variant { display: none; }
+    .variant.active { display: block; }
+
+    .avatar-showcase {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: var(--space-8);
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+    }
+
+    .section-title {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-2);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .size-preview {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--space-6);
+      margin-bottom: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    .size-item {
+      text-align: center;
+    }
+    .size-label {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      margin-top: var(--space-2);
+    }
+
+    /* Avatar Styles */
+    .avatar {
+      background: linear-gradient(135deg, #fff 0%, #f8f0e8 100%);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .avatar-96 { width: 96px; height: 96px; }
+    .avatar-64 { width: 64px; height: 64px; }
+    .avatar-48 { width: 48px; height: 48px; }
+    .avatar-32 { width: 32px; height: 32px; }
+
+    /* Variant A: Cup Gashapon */
+    .avatar-a {
+      background: linear-gradient(180deg, #fff8f0 0%, #f5e6d3 100%);
+      border: 3px solid #e8a87c;
+      position: relative;
+    }
+    .avatar-a::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 8px;
+      background: #d4956a;
+      border-radius: 0 0 4px 4px;
+    }
+    .cup-body {
+      width: 50px;
+      height: 55px;
+      background: linear-gradient(180deg, #fff 0%, #fce8d8 100%);
+      border: 3px solid #e8a87c;
+      border-radius: 0 0 12px 12px;
+      position: absolute;
+      bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .cup-lid {
+      width: 56px;
+      height: 12px;
+      background: #d4956a;
+      border-radius: 4px;
+      position: absolute;
+      top: 16px;
+    }
+    .cup-straw {
+      width: 6px;
+      height: 20px;
+      background: #e88c8c;
+      border-radius: 3px;
+      position: absolute;
+      top: 22px;
+      right: 14px;
+    }
+    .cup-crystal {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255,200,180,0.8) 0%, rgba(255,180,160,0.6) 100%);
+      border: 2px solid rgba(232,168,124,0.4);
+      position: absolute;
+      top: 28px;
+      box-shadow: inset 0 -5px 10px rgba(232,168,124,0.3);
+    }
+    .cup-crystal::after {
+      content: '?';
+      font-size: 20px;
+      font-weight: 700;
+      color: #d4956a;
+    }
+
+    /* Variant B: Bubble Character */
+    .avatar-b {
+      background: linear-gradient(180deg, #fff0e8 0%, #ffe4d4 100%);
+      border: 3px solid #f4c9a8;
+    }
+    .bubble-body {
+      width: 60px;
+      height: 70px;
+      position: relative;
+    }
+    .bubble-head {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(180deg, #fff 0%, #fff8f0 100%);
+      border: 3px solid #e8a87c;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bubble-face {
+      font-size: 18px;
+      color: #5c3d2e;
+    }
+    .bubble-cup {
+      width: 30px;
+      height: 25px;
+      background: linear-gradient(180deg, #fce8d8 0%, #e8a87c 100%);
+      border: 2px solid #d4956a;
+      border-radius: 0 0 8px 8px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .bubble-lid {
+      width: 34px;
+      height: 8px;
+      background: #d4956a;
+      border-radius: 4px;
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .bubble-straw {
+      width: 4px;
+      height: 15px;
+      background: #e88c8c;
+      border-radius: 2px;
+      position: absolute;
+      bottom: 25px;
+      right: 8px;
+    }
+
+    /* Variant C: Capsule Focus */
+    .avatar-c {
+      background: linear-gradient(180deg, #e8f4ff 0%, #d4e8ff 100%);
+      border: 3px solid #88c9a8;
+    }
+    .capsule-main {
+      width: 56px;
+      height: 72px;
+      position: relative;
+    }
+    .capsule-top {
+      width: 56px;
+      height: 36px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,200,180,0.7) 100%);
+      border: 3px solid #e8a87c;
+      border-radius: 28px 28px 0 0;
+      border-bottom: none;
+      position: absolute;
+      top: 0;
+    }
+    .capsule-bottom {
+      width: 56px;
+      height: 36px;
+      background: linear-gradient(180deg, rgba(255,180,160,0.7) 0%, rgba(232,140,140,0.7) 100%);
+      border: 3px solid #e88c8c;
+      border-radius: 0 0 28px 28px;
+      border-top: none;
+      position: absolute;
+      bottom: 0;
+    }
+    .capsule-shine {
+      position: absolute;
+      top: 8px;
+      left: 12px;
+      width: 12px;
+      height: 20px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 6px;
+      transform: rotate(-20deg);
+    }
+    .capsule-bubbles {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 3px;
+    }
+    .mini-bubble {
+      width: 6px;
+      height: 6px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 50%;
+    }
+
+    /* WeChat Context */
+    .wechat-context {
+      margin-top: var(--space-8);
+      padding-top: var(--space-6);
+      border-top: 1px dashed var(--color-border);
+    }
+    .wechat-preview {
+      display: flex;
+      gap: var(--space-6);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .chat-bubble {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .chat-text {
+      font-size: var(--text-sm);
+      line-height: 1.5;
+      color: var(--color-text-muted);
+    }
+    .chat-text strong {
+      color: var(--color-text);
+    }
+
+    /* Toolbar */
+    #sketch-tools {
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      z-index: 9999;
+      font-size: 11px;
+      background: rgba(92, 61, 46, 0.85);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    #sketch-tools:hover { opacity: 1; }
+    #sketch-tools label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+    #sketch-tools select { padding: 2px 6px; border-radius: 4px; border: none; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <!-- Tab Navigation -->
+  <div id="variant-nav">
+    <button class="variant-tab active" onclick="showVariant('a')">A: 奶茶杯扭蛋机</button>
+    <button class="variant-tab" onclick="showVariant('b')">B: 泡泡角色</button>
+    <button class="variant-tab" onclick="showVariant('c')">C: 胶囊聚焦</button>
+  </div>
+
+  <!-- Variant A: Cup Gashapon -->
+  <div id="variant-a" class="variant active">
+    <div class="avatar-showcase">
+      <div class="section-title">在不同尺寸下的表现</div>
+      <div class="size-preview">
+        <div class="size-item">
+          <div class="avatar avatar-96 avatar-a">
+            <div class="cup-lid"></div>
+            <div class="cup-crystal"></div>
+            <div class="cup-body"></div>
+            <div class="cup-straw"></div>
+          </div>
+          <div class="size-label">96×96</div>
+        </div>
+        <div class="size-item">
+          <div class="avatar avatar-64 avatar-a">
+            <div class="cup-lid" style="width:36px;height:8px;top:10px;"></div>
+            <div class="cup-crystal" style="width:28px;height:28px;top:18px;font-size:14px;">?</div>
+            <div class="cup-body" style="width:34px;height:38px;bottom:8px;"></div>
+          </div>
+          <div class="size-label">64×64</div>
+        </div>
+        <div class="size-item">
+          <div class="avatar avatar-48 avatar-a">
+            <div class="cup-lid" style="width:28px;height:6px;top:6px;"></div>
+            <div class="cup-crystal" style="width:20px;height:20px;top:10px;font-size:10px;">?</div>
+            <div class="cup-body" style="width:26px;height:28px;bottom:6px;"></div>
+          </div>
+          <div class="size-label">48×48</div>
+        </div>
+        <div class="size-item">
+          <div class="avatar avatar-32 avatar-a">
+            <div class="cup-lid" style="width:20px;height:4px;top:4px;"></div>
+            <div class="cup-crystal" style="width:14px;height:14px;top:6px;font-size:8px;">?</div>
+            <div class="cup-body" style="width:18px;height:18px;bottom:4px;"></div>
+          </div>
+          <div class="size-label">32×32</div>
+        </div>
+      </div>
+
+      <div class="section-title">微信聊天场景</div>
+      <div class="wechat-context">
+        <div class="wechat-preview">
+          <div class="chat-bubble">
+            <div class="avatar avatar-32 avatar-a" style="flex-shrink:0;">
+              <div class="cup-lid" style="width:20px;height:4px;top:4px;"></div>
+              <div class="cup-crystal" style="width:14px;height:14px;top:6px;font-size:8px;">?</div>
+              <div class="cup-body" style="width:18px;height:18px;bottom:4px;"></div>
+            </div>
+            <div class="chat-text"><strong>奶茶扭蛋机</strong> 分享了一个推荐</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant B: Bubble Character -->
+  <div id="variant-b" class="variant" style="display:none">
+    <div class="avatar-showcase">
+      <div class="size-preview">
+        <div class="size-item">
+          <div class="avatar avatar-96 avatar-b">
+            <div class="bubble-body">
+              <div class="bubble-head">
+                <span class="bubble-face">^ω^</span>
+              </div>
+              <div class="bubble-lid"></div>
+              <div class="bubble-cup"></div>
+              <div class="bubble-straw"></div>
+            </div>
+          </div>
+          <div class="size-label">96×96</div>
+        </div>
+        <div class="size-item">
+          <div class="avatar avatar-64 avatar-b">
+            <div class="bubble-body" style="transform:scale(0.65)">
+              <div class="bubble-head"><span class="bubble-face">^ω^</span></div>
+              <div class="bubble-lid"></div>
+              <div class="bubble-cup"></div>
+              <div class="bubble-straw"></div>
+            </div>
+          </div>
+          <div class="size-label">64×64</div>
+        </div>
+        <div class="size-item">
+          <div class="avatar avatar-48 avatar-b">
+            <div class="bubble-body" style="transform:scale(0.5)">
+              <div class="bubble-head"><span class="bubble-face">^ω^</span></div>
+              <div class="bubble-lid"></div>
+              <div class="bubble-cup"></div>
+              <div class="bubble-straw"></div>
+            </div>
+          </div>
+          <div class="size-label">48×48</div>
+        </div>
+        <div class="size-item">
+          <div class="avatar avatar-32 avatar-b">
+            <div class="bubble-body" style="transform:scale(0.35)">
+              <div class="bubble-head"><span class="bubble-face">^ω^</span></div>
+              <div class="bubble-lid"></div>
+              <div class="bubble-cup"></div>
+              <div class="bubble-straw"></div>
+            </div>
+          </div>
+          <div class="size-label">32×32</div>
+        </div>
+      </div>
+
+      <div class="section-title">微信聊天场景</div>
+      <div class="wechat-context">
+        <div class="wechat-preview">
+          <div class="chat-bubble">
+            <div class="avatar avatar-32 avatar-b" style="flex-shrink:0;">
+              <div class="bubble-body" style="transform:scale(0.35)">
+                <div class="bubble-head"><span class="bubble-face">^ω^</span></div>
+                <div class="bubble-lid"></div>
+                <div class="bubble-cup"></div>
+                <div class="bubble-straw"></div>
+              </div>
+            </div>
+            <div class="chat-text"><strong>奶茶扭蛋机</strong> 分享了一个推荐</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant C: Capsule Focus -->
+  <div id="variant-c" class="variant" style="display:none">
+    <div class="avatar-showcase">
+      <div class="size-preview">
+        <div class="size-item">
+          <div class="avatar avatar-96 avatar-c">
+            <div class="capsule-main">
+              <div class="capsule-top"></div>
+              <div class="capsule-bottom"></div>
+              <div class="capsule-shine"></div>
+            </div>
+          </div>
+          <div class="size-label">96×96</div>
+        </div>
+        <div class="size-item">
+          <div class="avatar avatar-64 avatar-c">
+            <div class="capsule-main" style="transform:scale(0.65)">
+              <div class="capsule-top"></div>
+              <div class="capsule-bottom"></div>
+              <div class="capsule-shine"></div>
+            </div>
+          </div>
+          <div class="size-label">64×64</div>
+        </div>
+        <div class="size-item">
+          <div class="avatar avatar-48 avatar-c">
+            <div class="capsule-main" style="transform:scale(0.5)">
+              <div class="capsule-top"></div>
+              <div class="capsule-bottom"></div>
+              <div class="capsule-shine"></div>
+            </div>
+          </div>
+          <div class="size-label">48×48</div>
+        </div>
+        <div class="size-item">
+          <div class="avatar avatar-32 avatar-c">
+            <div class="capsule-main" style="transform:scale(0.35)">
+              <div class="capsule-top"></div>
+              <div class="capsule-bottom"></div>
+              <div class="capsule-shine"></div>
+            </div>
+          </div>
+          <div class="size-label">32×32</div>
+        </div>
+      </div>
+
+      <div class="section-title">微信聊天场景</div>
+      <div class="wechat-context">
+        <div class="wechat-preview">
+          <div class="chat-bubble">
+            <div class="avatar avatar-32 avatar-c" style="flex-shrink:0;">
+              <div class="capsule-main" style="transform:scale(0.35)">
+                <div class="capsule-top"></div>
+                <div class="capsule-bottom"></div>
+                <div class="capsule-shine"></div>
+              </div>
+            </div>
+            <div class="chat-text"><strong>奶茶扭蛋机</strong> 分享了一个推荐</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sketch Toolbar -->
+  <div id="sketch-tools">
+    <label>
+      Theme: <select onchange="document.querySelector('link[href*=themes]').href='../themes/'+this.value+'.css'">
+        <option value="default" selected>Default</option>
+      </select>
+    </label>
+  </div>
+
+  <script>
+    function showVariant(id) {
+      document.querySelectorAll('.variant').forEach(v => v.style.display = 'none');
+      document.querySelectorAll('.variant-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('variant-' + id).style.display = 'block';
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

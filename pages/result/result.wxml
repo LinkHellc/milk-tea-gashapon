@@ -41,4 +41,7 @@
     <button class="action-btn share-btn" bindtap="onShareTap">分享结果</button>
   </view>
 
+  <!-- Hidden canvas for share image generation -->
+  <canvas type="2d" id="shareCanvas" class="share-canvas" style="width: 600rpx; height: 480rpx;"></canvas>
+
 </view>

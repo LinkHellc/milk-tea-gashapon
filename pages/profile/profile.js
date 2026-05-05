@@ -3,65 +3,57 @@ const auth = require('../../utils/auth.js');
 Page({
   data: {
     userInfo: null,
-    drawCount: 0,
-    points: 0,
-    achievementCount: 0
+    totalPoints: 0,
+    totalDraws: 0,
+    achievements: [],
+    unlockedCount: 0
   },
 
   onLoad() {
-    // Auth guard — check on load
     const userInfo = auth.getStoredUserInfo();
-    if (!userInfo) {
-      wx.showToast({ title: '请先登录', icon: 'none' });
-      // Don't navigate back — show the not-logged state instead
-      return;
+    if (userInfo) {
+      this.setData({ userInfo });
     }
-    this.setData({ userInfo });
-    // Load user stats (from cloud in Phase 5, defaults for now)
-    this.setData({
-      drawCount: 0,
-      points: 0,
-      achievementCount: 0
-    });
+    this.loadUserData();
   },
 
   onShow() {
-    // Re-check auth state when page shows (user may have logged in elsewhere)
-    const userInfo = auth.getStoredUserInfo();
-    this.setData({ userInfo: userInfo || null });
+    this.loadUserData();
   },
 
-  onLoginTap() {
-    auth.requestAuth(
-      (userInfo) => {
-        this.setData({ userInfo });
-        wx.showToast({ title: '登录成功', icon: 'success' });
-      },
-      () => {
-        wx.showToast({ title: '登录已取消', icon: 'none' });
-      }
-    );
-  },
-
-  onHistoryTap() {
-    wx.showToast({ title: '历史记录开发中', icon: 'none' });
-  },
-
-  onAchievementTap() {
-    wx.showToast({ title: '成就系统开发中', icon: 'none' });
-  },
-
-  onLogoutTap() {
-    wx.showModal({
-      title: '确认退出',
-      content: '确定要退出登录吗？',
+  loadUserData() {
+    wx.cloud.callFunction({
+      name: 'getUserData',
       success: (res) => {
-        if (res.confirm) {
-          auth.clearUserInfo();
-          this.setData({ userInfo: null });
-          wx.showToast({ title: '已退出', icon: 'success' });
+        if (res.result && res.result.success) {
+          const { points, totalDraws, achievements } = res.result.data;
+          const unlockedCount = achievements.filter(a => a.unlocked).length;
+          this.setData({
+            totalPoints: points,
+            totalDraws,
+            achievements,
+            unlockedCount
+          });
         }
+      },
+      fail: (err) => {
+        console.error('getUserData failed:', err);
       }
     });
+  },
+
+  goHistory() {
+    wx.navigateTo({ url: '/pages/history/history' });
+  },
+
+  goDraw() {
+    wx.switchTab({ url: '/pages/index/index' });
+  },
+
+  onShareAppMessage() {
+    return {
+      title: '今天喝什么 - 个人中心',
+      path: '/pages/profile/profile'
+    };
   }
 });
